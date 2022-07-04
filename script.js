@@ -10,6 +10,11 @@ let scoreo=document.getElementById('score-o')
 let x=0;
 let o=0;
 let reset=document.getElementById('reset');
+let ting=new Audio("ting.mp3");
+let music=new Audio("music.mp3");
+let gameover=new Audio("gameover.mp3");
+music.loop = true;
+music.play();
 
 const changeturn = ()=>{
     if(turn=="X"){
@@ -42,6 +47,7 @@ const checkwin = ()=>{
     wins.forEach(e => {
         if(boxes[e[0]].textContent===boxes[e[1]].textContent && boxes[e[0]].textContent===boxes[e[2]].textContent && boxes[e[0]].textContent!=""){
             win=1;
+            gameover.play();
             if(turn=="O"){
                 yto.textContent="";
                 ytx.textContent="You Won";
@@ -49,6 +55,7 @@ const checkwin = ()=>{
                 X.style.backgroundColor= "rgb(93, 220, 125)";
                 x++;
                 scorex.textContent="X : "+ x;
+                document.getElementById('xx').style.width="100px";
             }
             else{
                 yto.textContent="You Won";
@@ -57,6 +64,7 @@ const checkwin = ()=>{
                 O.style.backgroundColor= "rgb(93, 220, 125)";
                 o++;
                 scoreo.textContent="O : "+ o;
+                document.getElementById('oo').style.width="100px";
             }
         }
     });
@@ -77,6 +85,9 @@ Array.from(boxes).forEach(element => {
             }
             if(win==0){
                 checkwin();
+                if(win==0){
+                    ting.play();
+                }
             }
         }
     })
@@ -89,4 +100,6 @@ reset.addEventListener('click',()=>{
     Array.from(boxes).forEach(element => {
         element.textContent="";
     });
+    document.getElementById('oo').style.width="0px";
+    document.getElementById('xx').style.width="0px";
 })

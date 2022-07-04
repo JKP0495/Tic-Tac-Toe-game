@@ -99,3 +99,33 @@ body{
     background-color: rgb(204, 190, 245);
     cursor: pointer;
 }
+#xx{
+    width: 0;
+    transition:width 1s ease-in-out;
+}
+#oo{
+    transition:width 1s ease-in-out;
+    width:0;
+}
+
+@media only screen and (max-width: 850px) {
+    .all{
+        flex-direction: column;
+        align-items: center;
+    }
+    .main{
+        display: grid;
+        grid-template-columns: repeat(3,15vw);
+        grid-template-rows: repeat(3,15vw);
+    }
+    .box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12vw;
+        cursor: pointer;
+    }
+    .side{
+        margin:20px;
+    }
+}
