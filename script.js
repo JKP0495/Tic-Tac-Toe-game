@@ -5,6 +5,11 @@ let O=document.getElementById('O')
 let ytx=document.getElementById('ytx')
 let yto=document.getElementById('yto')
 let win=0;
+let scorex=document.getElementById('score-x')
+let scoreo=document.getElementById('score-o')
+let x=0;
+let o=0;
+let reset=document.getElementById('reset');
 
 const changeturn = ()=>{
     if(turn=="X"){
@@ -35,13 +40,23 @@ const checkwin = ()=>{
         [2,4,6],
     ]
     wins.forEach(e => {
-        if(boxes[e[0]]===boxes[e[1]] && boxes[e[0]]===boxes[e[2]] && boxes[e[0]]!==""){
+        if(boxes[e[0]].textContent===boxes[e[1]].textContent && boxes[e[0]].textContent===boxes[e[2]].textContent && boxes[e[0]].textContent!=""){
             win=1;
-            if(turn=="X"){
-
+            if(turn=="O"){
+                yto.textContent="";
+                ytx.textContent="You Won";
+                O.style.backgroundColor= "rgb(235, 114, 114)";
+                X.style.backgroundColor= "rgb(93, 220, 125)";
+                x++;
+                scorex.textContent="X : "+ x;
             }
             else{
-
+                yto.textContent="You Won";
+                ytx.textContent="";
+                X.style.backgroundColor= "rgb(235, 114, 114)";
+                O.style.backgroundColor= "rgb(93, 220, 125)";
+                o++;
+                scoreo.textContent="O : "+ o;
             }
         }
     });
@@ -49,11 +64,29 @@ const checkwin = ()=>{
 
 Array.from(boxes).forEach(element => {
     element.addEventListener('click',()=>{
-        element.textContent= turn;
-        checkwin();
-        if(win===0){
-            changeturn();
+        if(element.textContent!=""){
+            alert("This Box is already filled, Please select other");
+        }
+        else{
+            if(win==0){
+                element.textContent= turn;
+                changeturn();
+            }
+            else{
+                alert("Game is Over, Please Reset to Start Again");
+            }
+            if(win==0){
+                checkwin();
+            }
         }
     })
 });
 
+reset.addEventListener('click',()=>{
+    changeturn();
+    changeturn();
+    win=0;
+    Array.from(boxes).forEach(element => {
+        element.textContent="";
+    });
+})
